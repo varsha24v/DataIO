@@ -1,0 +1,32 @@
+import csv
+
+# Define the file path
+file_path = "June.csv"
+
+# Open the file in read mode
+with open(file_path, 'r') as file:
+    # Create a CSV reader object
+    csv_reader = csv.reader(file)
+    
+    # Skip the header row
+    next(csv_reader)
+    
+    # Iterate over each row in the CSV file
+    for row in csv_reader:
+        # Access each field in the row
+        ride_id = row[0]
+        rideable_type = row[1]
+        started_at = row[2]
+        ended_at = row[3]
+        start_station_name = row[4]
+        start_station_id = row[5]
+        end_station_name = row[6]
+        end_station_id = row[7]
+        start_lat = row[8]
+        start_lng = row[9]
+        end_lat = row[10]
+        end_lng = row[11]
+        member_casual = row[12]
+        
+        # Do something with the data, such as printing it
+        print(f"Ride ID: {ride_id}, Member/Casual: {member_casual}")
