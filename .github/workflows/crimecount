@@ -1,0 +1,24 @@
+import folium
+from folium.plugins import HeatMap
+
+# Simulated data for crime locations and rates
+crime_locations = [[37.7749, -122.4194], [37.7749, -122.4184], [37.7749, -122.4174], [37.7759, -122.4184], [37.7759, -122.4174]]
+crime_rates = [100, 200, 300, 400, 500]  # Crime rates corresponding to each location
+
+# Create a base map centered around San Francisco
+m = folium.Map(location=[37.7749, -122.4194], zoom_start=13)
+
+# Add heatmap layer based on crime locations and rates
+heat_data = [[loc[0], loc[1], rate] for loc, rate in zip(crime_locations, crime_rates)]
+HeatMap(heat_data, radius=15).add_to(m)
+
+# Save the map as an HTML file
+m.save('crime_heatmap.html')
+
+from IPython.display import IFrame
+
+# Save the map as an HTML file
+m.save('crime_heatmap.html')
+
+# Display the map
+IFrame(src='crime_heatmap.html', width=700, height=600)
