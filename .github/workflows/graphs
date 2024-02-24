@@ -1,0 +1,21 @@
+# Usage patterns by user type
+user_type_counts = data['member_casual'].value_counts()
+
+# Trip duration distribution by user type
+plt.figure(figsize=(10, 6))
+sns.histplot(data=data, x='trip_duration_minutes', hue='member_casual', bins=30, kde=True, palette='viridis')
+plt.title('Trip Duration Distribution by User Type')
+plt.xlabel('Trip Duration (minutes)')
+plt.ylabel('Frequency')
+plt.legend(title='User Type')
+plt.grid(True)
+plt.show()
+
+# Popular routes taken
+popular_routes = data.groupby(['start_station_name', 'end_station_name']).size().nlargest(10).reset_index(name='count')
+
+print("\nUsage Patterns by User Type:")
+print(user_type_counts)
+
+print("\nPopular Routes Taken:")
+print(popular_routes)
