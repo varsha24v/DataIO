@@ -1,0 +1,32 @@
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Load data for each month and concatenate into a single DataFrame
+months = ['January.csv', 'February.csv', 'March.csv', 'April.csv', 'May.csv', 'June.csv', 'July.csv', 'August.csv', 'September.csv', 'October.csv', 'November.csv', 'December.csv']
+dfs = []
+
+for month in months:
+    df = pd.read_csv(month)
+    dfs.append(df)
+
+data = pd.concat(dfs, ignore_index=True)
+
+# Ensure 'started_at' column is recognized as datetime
+data['started_at'] = pd.to_datetime(data['started_at'])
+
+# Extract month and year from the 'started_at' column
+data['month_year'] = data['started_at'].dt.to_period('M')
+
+# Calculate the number of bike trips per month
+monthly_counts = data.groupby('month_year').size()
+
+# Plot the line graph
+plt.figure(figsize=(10, 6))
+plt.plot(monthly_counts.index.strftime('%b %Y'), monthly_counts.values, color='#FF69B4', marker='o')  # Pink color
+plt.title('Highest Bike Usage per Month')
+plt.xlabel('Month')
+plt.ylabel('Number of Trips')
+plt.xticks(rotation=45)
+plt.grid(True)
+plt.tight_layout()
+plt.show()
